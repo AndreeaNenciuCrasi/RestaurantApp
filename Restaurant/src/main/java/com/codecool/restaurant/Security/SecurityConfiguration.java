@@ -57,6 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.DELETE,"/yellowrestaurant/api/v1/user/**").hasRole("USER")
                 .antMatchers("/yellowrestaurant/api/v1/user/**").hasRole("USER")
                 .antMatchers("/yellowrestaurant/api/v1/cart/**").hasRole("USER")
+                .antMatchers("/payment").permitAll()
                 .anyRequest().denyAll()
             .and()
                 .headers().frameOptions().disable()

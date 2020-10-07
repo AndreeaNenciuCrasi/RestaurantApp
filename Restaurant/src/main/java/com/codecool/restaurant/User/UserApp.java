@@ -1,12 +1,11 @@
 package com.codecool.restaurant.User;
 
 
-import com.codecool.restaurant.ShoppingCart.UserOrder;
+import com.codecool.restaurant.order.UserOrder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity

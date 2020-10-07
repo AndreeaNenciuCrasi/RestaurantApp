@@ -28,4 +28,12 @@ public class MealsToCartService {
     public void updateQuantity(Meal meal) {
         mealsToCartRepository.updateQuantity(meal);
     }
+
+    public double getTotalPrice(ShoppingCart shoppingCart) {
+        return mealsToCartRepository.totalQty(shoppingCart) * 5;
+    }
+
+    public void clearCart(ShoppingCart shoppingCart) {
+        mealsToCartRepository.deleteByShoppingCart(shoppingCart);
+    }
 }
