@@ -39,10 +39,10 @@ public class PaypalController {
     }
 
 
-    @GetMapping(value = SUCCESS_URL)
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+    @PostMapping("/details")
+        public String successPay(@RequestBody PaymentDetailsModel paymentDetailsModel) {
         try {
-            Payment payment = service.executePayment(paymentId, payerId);
+            Payment payment = service.getPaymentDetails(paymentDetailsModel.getPaymentId(), paymentDetailsModel.getPayerId());
             System.out.println(payment.toJSON());
             if (payment.getState().equals("approved")) {
                 return "success";
@@ -50,6 +50,8 @@ public class PaypalController {
         } catch (PayPalRESTException e) {
             System.out.println(e.getMessage());
         }
-        return "redirect:/";
+        return "error";
     }
+
+
 }
