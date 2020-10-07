@@ -49,12 +49,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/h2/**").permitAll()
-//                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
                 .antMatchers("/yellowrestaurant/api/v1/user").permitAll()// allowed by anyone
-//                .antMatchers(HttpMethod.GET,"/yellowrestaurant/api/v1/user/**").hasRole("USER") // allowed only when signed in
-//                .antMatchers(HttpMethod.PUT,"/yellowrestaurant/api/v1/user/**").hasRole("USER")
-//                .antMatchers(HttpMethod.POST,"/yellowrestaurant/api/v1/user/**").hasRole("USER")
-//                .antMatchers(HttpMethod.DELETE,"/yellowrestaurant/api/v1/user/**").hasRole("USER")
                 .antMatchers("/yellowrestaurant/api/v1/user/**").hasRole("USER")
                 .antMatchers("/yellowrestaurant/api/v1/cart/**").hasRole("USER")
                 .antMatchers("/payment").permitAll()
@@ -65,8 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .headers().cacheControl().disable()
             .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
-//        http.cors();
-
     }
 
     @Bean
