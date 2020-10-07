@@ -30,5 +30,4 @@ public class RestaurantApplication {
     public Docket restaurantApp() {
         return new Docket(DocumentationType.SWAGGER_2);
     }
-
 }

@@ -44,12 +44,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .authorizeRequests()
+                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/logout").permitAll()
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/h2/**").permitAll()
-                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
                 .antMatchers("/yellowrestaurant/api/v1/user").permitAll()// allowed by anyone
                 .antMatchers("/yellowrestaurant/api/v1/user/**").hasRole("USER")
                 .antMatchers("/yellowrestaurant/api/v1/cart/**").hasRole("USER")
