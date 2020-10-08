@@ -27,8 +27,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        UserApp user = new UserApp("Andreea", "Grosu", "admin", "andreea.grosu87@gmail.com", "", "", passwordEncoder.encode("admin"));
-
+        UserApp user = new UserApp("admin", "admin", "admin", "andmim@gmail.com", "", "", passwordEncoder.encode("admin"));
         userRepository.save(user);
         shoppingCartService.addCart(new ShoppingCart(user));
 
