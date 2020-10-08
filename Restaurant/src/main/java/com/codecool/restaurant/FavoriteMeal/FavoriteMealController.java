@@ -26,7 +26,6 @@ public class FavoriteMealController {
     @PutMapping(path = "{username}/favorites/{idMeal}")
     public void addMealToFavorites(@PathVariable("username") String username, @RequestBody HashMap<String, String> listMealAttributes){
         UserApp userApp = userService.getUserByUsername(username).orElse(null);
-        List<String> listStrings = new ArrayList<>();
         String idMeal = listMealAttributes.get("idMeal");
         String name = listMealAttributes.get("strMeal");
         String image = listMealAttributes.get("strMealThumb");
@@ -38,5 +37,16 @@ public class FavoriteMealController {
     public List<FavoriteMeal> getFavorites(@PathVariable("username") String username) {
         UserApp userApp = userService.getUserByUsername(username).orElse(null);
         return favoriteMealService.getAllFavoriteMeals(userApp.getId());
+    }
+
+    @DeleteMapping(path = "{username}/favorites/delete/{idMeal}")
+    public void deleteFavoriteByIdMeal(@PathVariable("username") String username, @PathVariable("idMeal") String idMeal) {
+        UserApp userApp = userService.getUserByUsername(username).orElse(null);
+        List<FavoriteMeal> favoriteMeals = favoriteMealService.getAllFavoriteMeals(userApp.getId());
+        for (FavoriteMeal favoriteMeal : favoriteMeals) {
+            if (favoriteMeal.getIdMeal().equals(idMeal)) {
+                favoriteMealService.deleteFavoriteMealByIdMeal(idMeal);
+            }
+        }
     }
 }
