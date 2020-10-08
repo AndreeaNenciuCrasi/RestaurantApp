@@ -1,5 +1,6 @@
 package com.codecool.restaurant.FavoriteMeal;
 
+import com.codecool.restaurant.User.UserApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,9 @@ public class FavoriteMealService {
 
     public List<FavoriteMeal> getAllFavoriteMeals(Long user_id) {
         return favoriteMealRepository.getAllFavoriteMealsByUserAppId(user_id);
+    }
+
+    public void deleteFavoriteMealByIdMeal(String idMeal) {
+        favoriteMealRepository.deleteFavoriteMealByIdMeal(idMeal);
     }
 }
