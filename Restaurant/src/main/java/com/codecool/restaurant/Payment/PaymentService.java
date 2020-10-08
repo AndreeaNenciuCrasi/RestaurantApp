@@ -3,6 +3,7 @@ package com.codecool.restaurant.Payment;
 import com.codecool.restaurant.Meal.MealsToCartService;
 import com.codecool.restaurant.Payment.common.PaypalOrderModel;
 import com.codecool.restaurant.ShoppingCart.ShoppingCart;
+import com.codecool.restaurant.ShoppingCart.ShoppingCartException;
 import com.codecool.restaurant.ShoppingCart.ShoppingCartService;
 import com.codecool.restaurant.User.UserApp;
 import com.codecool.restaurant.User.UserService;
@@ -17,10 +18,13 @@ public class PaymentService {
 
     @Autowired
     private final MealsToCartService mealsToCartService;
+
     @Autowired
     private final UserService userService;
+
     @Autowired
     private final ShoppingCartService shoppingCartService;
+
     @Autowired
     private final UserOrderRepository userOrderRepository;
 
@@ -35,12 +39,16 @@ public class PaymentService {
         this.restTemplate = restTemplate;
     }
 
-    public void registerOrder(PaymentDetailsModel paymentDetailsModel) {
+    public void registerOrder(PaymentDetailsModel paymentDetailsModel) throws ShoppingCartException {
         String userName = paymentDetailsModel.getUserName();
         String paymentStatus = paymentDetailsModel.getPaymentStatus();
 
         UserApp userApp = userService.getUserByUsername(userName).orElse(null);
         ShoppingCart shoppingCart = shoppingCartService.getCartByUser(userApp);
+
+        if (shoppingCart == null) {
+            throw new ShoppingCartException();
+        }
         double total = mealsToCartService.getTotalPrice(shoppingCart);
 
         UserOrder userOrder = new UserOrder(paymentStatus,total,userApp);
