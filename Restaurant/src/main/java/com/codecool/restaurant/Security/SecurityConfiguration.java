@@ -54,11 +54,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/yellowrestaurant/api/v1/user/**").hasRole("USER")
                 .antMatchers("/yellowrestaurant/api/v1/cart/**").hasRole("USER")
                 .antMatchers("/payment").permitAll()
+                .antMatchers("/payment/request-payment").hasRole("USER")
                 .anyRequest().denyAll()
             .and()
                 .headers().frameOptions().disable()
-//            .and()
-//                .headers().cacheControl().disable()
             .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
@@ -69,7 +68,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"));
-//        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Set-Cookie", "Cookie", "token"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

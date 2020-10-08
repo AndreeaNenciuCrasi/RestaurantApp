@@ -9,8 +9,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PaymentDetailsModel {
+public class PaypalOrderModel {
 
-    private String paymentId;
-    private String payerId;
+    private double totalAmount;
+    private String description;
+    private String linkPaypal;
+
 }

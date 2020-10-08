@@ -1,4 +1,4 @@
-package com.example.paymentservice.payment;
+package com.codecool.restaurant.Payment.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderModel {
+public class PaypalOrderModel {
 
     private double totalAmount;
     private String description;
+    private String linkPaypal;
 
 }

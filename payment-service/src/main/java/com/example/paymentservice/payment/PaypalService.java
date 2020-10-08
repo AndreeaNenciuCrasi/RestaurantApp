@@ -52,12 +52,12 @@ public class PaypalService {
     }
 
 
-    public Payment getPaymentDetails(String paymentId, String payerId) throws PayPalRESTException {
-        Payment payment = new Payment();
-        payment.setId(paymentId);
-        PaymentExecution paymentExecute = new PaymentExecution();
-        paymentExecute.setPayerId(payerId);
-        return payment.execute(apiContext, paymentExecute);
-    }
+//    public Payment getPaymentDetails(String paymentId, String payerId) throws PayPalRESTException {
+//        Payment payment = new Payment();
+//        payment.setId(paymentId);
+//        PaymentExecution paymentExecute = new PaymentExecution();
+//        paymentExecute.setPayerId(payerId);
+//        return payment.execute(apiContext, paymentExecute);
+//    }
 
 }

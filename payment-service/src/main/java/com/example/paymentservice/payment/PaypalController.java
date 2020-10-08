@@ -23,35 +23,38 @@ public class PaypalController {
 
 
     @PostMapping()
-    public String payment(@RequestBody OrderModel orderModel) {
-		try {
-			Payment payment = service.createPayment(orderModel.getTotalAmount(), orderModel.getDescription(), CANCEL_URL,
-					SUCCESS_URL);
-			for(Links link:payment.getLinks()) {
-				if(link.getRel().equals("approval_url")) {
-					return link.getHref();
-				}
-			}
-		} catch (PayPalRESTException e) {
-			e.printStackTrace();
-		}
-		return ERROR_URL;
-    }
-
-
-    @PostMapping("/details")
-        public String successPay(@RequestBody PaymentDetailsModel paymentDetailsModel) {
+    public PaypalOrderModel payment(@RequestBody PaypalOrderModel paypalOrderModel) {
+        System.out.println("MicroService");
         try {
-            Payment payment = service.getPaymentDetails(paymentDetailsModel.getPaymentId(), paymentDetailsModel.getPayerId());
-            System.out.println(payment.toJSON());
-            if (payment.getState().equals("approved")) {
-                return "success";
+            Payment payment = service.createPayment(paypalOrderModel.getTotalAmount(), paypalOrderModel.getDescription(), CANCEL_URL,
+                    SUCCESS_URL);
+            for (Links link : payment.getLinks()) {
+                if (link.getRel().equals("approval_url")) {
+                    paypalOrderModel.setLinkPaypal(link.getHref());
+                    return paypalOrderModel;
+                }
             }
         } catch (PayPalRESTException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-        return "error";
+        paypalOrderModel.setLinkPaypal(ERROR_URL);
+        return paypalOrderModel;
     }
+
+
+//    @PostMapping("/details")
+//        public String successPay(@RequestBody PaymentDetailsModel paymentDetailsModel) {
+//        try {
+//            Payment payment = service.getPaymentDetails(paymentDetailsModel.getPaymentId(), paymentDetailsModel.getPayerId());
+//            System.out.println(payment.toJSON());
+//            if (payment.getState().equals("approved")) {
+//                return "success";
+//            }
+//        } catch (PayPalRESTException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return "error";
+//    }
 
 
 }

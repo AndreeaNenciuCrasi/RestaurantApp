@@ -1,6 +1,7 @@
 package com.codecool.restaurant.Payment;
 
 import com.codecool.restaurant.Meal.MealsToCartService;
+import com.codecool.restaurant.Payment.common.PaypalOrderModel;
 import com.codecool.restaurant.ShoppingCart.ShoppingCart;
 import com.codecool.restaurant.ShoppingCart.ShoppingCartService;
 import com.codecool.restaurant.User.UserApp;
@@ -9,6 +10,7 @@ import com.codecool.restaurant.order.UserOrder;
 import com.codecool.restaurant.order.UserOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PaymentService {
@@ -22,11 +24,15 @@ public class PaymentService {
     @Autowired
     private final UserOrderRepository userOrderRepository;
 
-    public PaymentService(MealsToCartService mealsToCartService, UserService userService, ShoppingCartService shoppingCartService, UserOrderRepository userOrderRepository) {
+    @Autowired
+    private final RestTemplate restTemplate;
+
+    public PaymentService(MealsToCartService mealsToCartService, UserService userService, ShoppingCartService shoppingCartService, UserOrderRepository userOrderRepository, RestTemplate restTemplate) {
         this.mealsToCartService = mealsToCartService;
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
         this.userOrderRepository = userOrderRepository;
+        this.restTemplate = restTemplate;
     }
 
     public void registerOrder(PaymentDetailsModel paymentDetailsModel) {
@@ -45,4 +51,10 @@ public class PaymentService {
     }
 
 
+    public String requestPayment(PaypalOrderModel paypalOrderModel) {
+        String result;
+        PaypalOrderModel response = restTemplate.postForObject("http://payment-service/api/v1/payment", paypalOrderModel, PaypalOrderModel.class);
+        result=response.getLinkPaypal();
+        return result;
+    }
 }
