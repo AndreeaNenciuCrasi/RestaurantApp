@@ -17,6 +17,7 @@ public class UserService {
     // Add encoder for password
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     private final UserRepository userRepository;
 
     private final JwtTokenServices jwtTokenServices;
@@ -37,6 +38,7 @@ public class UserService {
     public List<UserApp> getAllUsers(){
         return userRepository.findAll();
     }
+
     public Optional<UserApp> getUserById(Long id){
         return userRepository.findById(id);
     }

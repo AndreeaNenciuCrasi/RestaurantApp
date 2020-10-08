@@ -1,6 +1,7 @@
 package com.codecool.restaurant.Payment;
 
 import com.codecool.restaurant.Payment.common.PaypalOrderModel;
+import com.codecool.restaurant.ShoppingCart.ShoppingCartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +24,15 @@ public class PaymentController {
 
     }
 
-
-
     @PostMapping
-    public void getPaymentDetails(@RequestBody PaymentDetailsModel paymentDetailsModel) {
-        paymentService.registerOrder(paymentDetailsModel);
-
-        System.out.println(paymentDetailsModel);
+    public String getPaymentDetails(@RequestBody PaymentDetailsModel paymentDetailsModel)
+    {
+        try {
+            paymentService.registerOrder(paymentDetailsModel);
+        } catch (ShoppingCartException e) {
+            return "Username does not exist!";
+        }
+        return "Success!";
 
     }
 }
