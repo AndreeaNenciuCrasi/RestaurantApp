@@ -1,30 +1,35 @@
 package com.codecool.restaurant.User;
 
 
-import com.codecool.restaurant.ShoppingCart.UserOrder;
+import com.codecool.restaurant.order.UserOrder;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
 @Table(name= "USER")
+@ApiModel(description = "Model to create a new User")
 public class UserApp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "Unique user id")
     private Long id;
     private String firstName;
     private String lastName;
 
     @Column(unique=true)
     @NotBlank(message = "UserName is mandatory")
+    @ApiModelProperty(notes = "Unique and mandatory username", example = "j.doe")
     private String userName;
 
     @Column(unique = true)
-    @NotBlank(message = "E-mail is mandatory" )
+    @NotBlank(message = "E-mail is mandatory")
+    @ApiModelProperty(notes = "Unique and mandatory email", example = "j.doe@gmail.com")
     private String emailAddress;
     private String deliveryAddress;
     private String phoneNumber;

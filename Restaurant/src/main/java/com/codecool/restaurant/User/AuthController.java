@@ -1,6 +1,7 @@
 package com.codecool.restaurant.User;
 
 import com.codecool.restaurant.Security.JwtTokenServices;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@Api(tags = "Authentication", value = "Authentication", description = "User login and logout")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;

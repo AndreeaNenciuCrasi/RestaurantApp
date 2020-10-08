@@ -1,6 +1,7 @@
-package com.codecool.restaurant.ShoppingCart;
+package com.codecool.restaurant.order;
 
 import com.codecool.restaurant.User.UserApp;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ public class UserOrder {
     private String status;
     private Double totalPrice;
 
+    @CreationTimestamp
     private Timestamp date;
 
     @ManyToOne
@@ -24,10 +26,11 @@ public class UserOrder {
     public UserOrder() {
     }
 
-    public UserOrder(String status, Double totalPrice) {
+    public UserOrder(String status, Double totalPrice, UserApp userApp) {
         this.status = status;
         this.totalPrice = totalPrice;
         this.date = new Timestamp(System.currentTimeMillis());
+        this.userApp = userApp;
     }
 
     public Long getId() {
