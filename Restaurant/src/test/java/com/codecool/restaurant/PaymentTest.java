@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -32,14 +34,14 @@ public class PaymentTest {
 
         RestTemplate restTemplate=mock(RestTemplate.class);
 
-        //mock all services and put them in the constructor + when and then for their methods
         PaymentService paymentService = new PaymentService(mealsToCartService, userService, shoppingCartService, userOrderRepository, restTemplate);
-        PaymentDetailsModel paymentDetailsModel = new PaymentDetailsModel("Wrong username", "success");
+        PaymentDetailsModel paymentDetailsModel = new PaymentDetailsModel("j.doe", "success");
 
-        when(userService.getUserByUsername("Wrong username")).thenReturn(null);
-        when(shoppingCartService.getCartByUser(null)).thenReturn(null);
+        UserApp userApp = new UserApp("Jane", "Doe", "j.doe", "j.doe@gmail.com", "", "", "pass");
+        when(userService.getUserByUsername("j.doe")).thenReturn(Optional.of(userApp));
+        when(shoppingCartService.getCartByUser(userApp)).thenReturn(null);
 
-        assertThrows(NullPointerException.class, () -> paymentService.registerOrder(paymentDetailsModel));
+        assertThrows(ShoppingCartException.class, () -> paymentService.registerOrder(paymentDetailsModel));
     }
 }
 

@@ -5,6 +5,7 @@ import com.codecool.restaurant.ShoppingCart.ShoppingCartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+// to do: write code for exceptions handling!!!
 @RestController
 @RequestMapping("/payment")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
