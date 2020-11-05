@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+// to do: write code for exceptions handling!!!
 @RequestMapping("yellowrestaurant/api/v1/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController

@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+// to do: write code for exceptions handling!!!
 @RequestMapping("/yellowrestaurant/api/v1/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
